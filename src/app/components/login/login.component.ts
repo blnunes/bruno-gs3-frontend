@@ -35,9 +35,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.errs = [];
     this.loginService.obter(this.formLogin.get('login')?.value, this.formLogin.get('senha')?.value)
       .subscribe(value => {
+        // this.apresentarMensagemSucesso('Login realizado com sucesso');
       this.router.navigate(['menu']);
     }, error => {
-      this.errs?.push(error.error.erro)
+        if(error?.error.erro){
+          this.errs?.push(error.error.erro)
+        } else {
+          this.errs.push('Falha ao se comunicar com o autenticador, tente novamente mais tarde!')
+        }
     })
   }
 
@@ -46,4 +51,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+  //
+  // private apresentarMensagemSucesso(loginRealizadoComSucesso: string) {
+  //   const alertConfig: AlertConfig
+  // }
+  danger = "dangerr";
+  alertType =  'danger';
 }

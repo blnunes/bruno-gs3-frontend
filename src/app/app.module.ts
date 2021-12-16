@@ -9,13 +9,15 @@ import {AppRoutingModule} from "./app-routing.module";
 import {ErrorComponent} from './components/error/error.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
+import { ClientesComponent } from './components/clientes/clientes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MenuComponent,
-    ErrorComponent
+    ErrorComponent,
+    ClientesComponent
   ],
   imports: [
     BrowserModule,

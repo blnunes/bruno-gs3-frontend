@@ -1,0 +1,39 @@
+<app-menu [apresentaBemvindo]="false"></app-menu>
+<div class="emptyState" *ngIf="clientes.length === 0">
+  <h1 class="m-lg-5">Nenhum cliente encontrado</h1>
+  <img src="assets/empty-state.png"/>
+</div>
+
+<table class="table mt-5">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">First</th>
+    <th scope="col">Last</th>
+    <th scope="col">Handle</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let cliente of clientes; let i = index">
+    <th scope="row">{{i + 1}}</th>
+    <td>{{cliente.nome}}</td>
+    <td>{{cliente.idade}}</td>
+    <td>{{cliente.idade}}</td>
+    <td>
+      <div>
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="bi-pencil-square" aria-hidden="true" (click)="acao()"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="bi-book" aria-hidden="true" (click)="acao()"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="bi-x-octagon" aria-hidden="true" (click)="acao()"></span>
+        </button>
+      </div>
+
+    </td>
+  </tr>
+  </tbody>
+</table>
+

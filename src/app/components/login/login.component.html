@@ -5,10 +5,12 @@
     <label class="col-form-label mb-2">Senha</label>
     <input type="password" class="input-group-text mb-2"  formControlName="senha"/>
     <button type="button" (click)="click()" [disabled]="formLogin.invalid" class="btn btn-info mb-4 button-login">Acessar</button>
-    <div class="alert-danger text-danger " *ngFor="let e of errs">
-      <label>{{e}}</label>
-    </div>
+  </div>
+  <div class="alert-danger text-danger erros-class" *ngFor="let e of errs">
+    <label>{{e}}</label>
   </div>
 </form>
+
+
 
 
