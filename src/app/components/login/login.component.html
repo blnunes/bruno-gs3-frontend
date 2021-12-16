@@ -1,0 +1,14 @@
+<form [formGroup]="formLogin">
+  <div class="form-label login-class">
+    <label class="mb-2">Login</label>
+    <input type="text" class="input-group-text mb-2" formControlName="login"/>
+    <label class="col-form-label mb-2">Senha</label>
+    <input type="password" class="input-group-text mb-2"  formControlName="senha"/>
+    <button type="button" (click)="click()" [disabled]="formLogin.invalid" class="btn btn-info mb-4 button-login">Acessar</button>
+    <div class="alert-danger text-danger " *ngFor="let e of errs">
+      <label>{{e}}</label>
+    </div>
+  </div>
+</form>
+
+

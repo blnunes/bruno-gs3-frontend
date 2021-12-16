@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {LoginService} from "./components/login/service/login.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'bruno-gs3-frontend';
+
+  constructor(
+  ) {
+  }
+
+
 }
