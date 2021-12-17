@@ -51,10 +51,4 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-  //
-  // private apresentarMensagemSucesso(loginRealizadoComSucesso: string) {
-  //   const alertConfig: AlertConfig
-  // }
-  danger = "dangerr";
-  alertType =  'danger';
 }

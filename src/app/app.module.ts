@@ -10,6 +10,8 @@ import {ErrorComponent} from './components/error/error.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import { ClientesComponent } from './components/clientes/clientes.component';
+import { ClienteFormComponent } from './components/clientes/cliente-form/cliente-form.component';
+import {NgxMaskModule} from "ngx-mask";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { ClientesComponent } from './components/clientes/clientes.component';
     LoginComponent,
     MenuComponent,
     ErrorComponent,
-    ClientesComponent
+    ClientesComponent,
+    ClienteFormComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,9 @@ import { ClientesComponent } from './components/clientes/clientes.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgxMaskModule.forChild(),
+
 
 
   ],
