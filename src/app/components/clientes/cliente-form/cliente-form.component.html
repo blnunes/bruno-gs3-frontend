@@ -1,15 +1,18 @@
 <app-menu [apresentaBemvindo]="false"></app-menu>
 <section class="form-control formcliente-class">
   <form [formGroup]="formCliente">
+    <h4>Cliente</h4>
     <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Nome</label>
+      <label class="form-label">Nome</label>
       <input type="text" class="form-control" id="nome" placeholder="José da Silva Sauro" formControlName="nome">
     </div>
     <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="form-label">CPF</label>
+      <label class="form-label">CPF</label>
       <input type="text" class="form-control" id="cpf" placeholder="999.999.999-99" formControlName="cpf"
-      [mask]="'000.000.000-00'">
+             [mask]="'000.000.000-00'">
     </div>
+    <app-endereco-form [formControl]="formCliente.get('endereco')">
+    </app-endereco-form>
   </form>
 </section>
 

@@ -12,6 +12,7 @@ import {RouterModule} from "@angular/router";
 import { ClientesComponent } from './components/clientes/clientes.component';
 import { ClienteFormComponent } from './components/clientes/cliente-form/cliente-form.component';
 import {NgxMaskModule} from "ngx-mask";
+import { EnderecoFormComponent } from './endereco-form/endereco-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {NgxMaskModule} from "ngx-mask";
     MenuComponent,
     ErrorComponent,
     ClientesComponent,
-    ClienteFormComponent
+    ClienteFormComponent,
+    EnderecoFormComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,7 @@ import {NgxMaskModule} from "ngx-mask";
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    NgxMaskModule.forChild(),
+    NgxMaskModule.forRoot()
 
 
 

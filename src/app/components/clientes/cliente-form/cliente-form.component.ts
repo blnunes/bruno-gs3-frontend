@@ -26,8 +26,13 @@ export class ClienteFormComponent implements OnInit, OnDestroy {
       const id: number = params['id']
       this.sub.add(this.service.obterCliente(id).subscribe(cliente => {
         this.clienteRetorno = cliente;
-      }))
+
+      }));
     });
+  this.montaFormBuilder();
+  }
+
+  montaFormBuilder(cliente?: Cliente){
     this.formCliente = this.fb.group({
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       cpf: [null, Validators.required],
@@ -46,8 +51,6 @@ export class ClienteFormComponent implements OnInit, OnDestroy {
         ddd: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]]
       })
     });
-
-
   }
 
   ngOnDestroy() {
