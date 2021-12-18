@@ -1,14 +1,15 @@
 <section>
   <app-menu [apresentaBemvindo]="false"></app-menu>
-  <div class="emptyState" *ngIf="clientes.length === 0">
-    <h1 class="m-lg-5">Nenhum cliente encontrado</h1>
-    <img src="assets/empty-state.png"/>
-  </div>
   <div class="btn-add">
     <button type="button" class="btn  btn-lg btn-info" *ngIf="isAdm" (click)="acao(0, 0)">
       <span class="bi-plus" aria-hidden="true" >Adicionar Cliente</span>
     </button>
   </div>
+  <div class="emptyState" *ngIf="clientes.length === 0">
+    <h1 class="m-lg-5">Nenhum cliente encontrado</h1>
+    <img src="assets/empty-state.png"/>
+  </div>
+
   <table class="table mt-5" *ngIf="clientes.length > 0">
     <thead>
     <tr>
