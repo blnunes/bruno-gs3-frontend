@@ -18,7 +18,7 @@
     <tr *ngFor="let cliente of clientes; let i = index">
       <th scope="row">{{i + 1}}</th>
       <td>{{cliente.nome}}</td>
-      <td>{{cliente.cpf}}</td>
+      <td>{{cliente.cpf | cpf}}</td>
       <td>
         <div>
           <button type="button" class="btn btn-default btn-lg" *ngIf="isAdm">

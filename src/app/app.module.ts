@@ -16,6 +16,7 @@ import { EnderecoFormComponent } from './components/clientes/cliente-form/endere
 import {NgSelectModule} from "@ng-select/ng-select";
 import { EmailFormComponent } from './components/clientes/cliente-form/email-form/email-form.component';
 import { TelefoneFormComponent } from './components/clientes/cliente-form/telefone-form/telefone-form.component';
+import { CpfPipe } from './components/clientes/cliente-form/pipes/cpf.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { TelefoneFormComponent } from './components/clientes/cliente-form/telefo
     ClienteFormComponent,
     EnderecoFormComponent,
     EmailFormComponent,
-    TelefoneFormComponent
+    TelefoneFormComponent,
+    CpfPipe,
+    CpfPipe
   ],
   imports: [
     BrowserModule,
