@@ -1,0 +1,55 @@
+<section class="form-control ">
+  <form [formGroup]="formParent">
+    <h4>Telefone</h4>
+    <button type="button" (click)="novoTelefone()" [disabled]="validaForm()" class="btn btn-info mb-4 button-login">Novo
+      Telefone
+    </button>
+    <div class="mb-3">
+      <label class="form-label">DDD</label>
+      <select class="form-select" id="ddd" formControlName="ddd">
+        <option *ngFor="let ddd of ddds" [value]="ddd.id">
+          {{ddd.id}}
+        </option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Número</label>
+      <input type="text" class="form-control" id="numero" [placeholder]="defaultMask" formControlName="numero"
+             [mask]="defaultMask">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Tipo Telefone</label>
+      <select class="form-select" id="tipoTelefone" (change)="selectItem()" formControlName="tipoTelefone">
+        <option *ngFor="let tipo of tiposTelefone" [value]="tipo.id">
+          {{tipo.descricao}}
+        </option>
+      </select>
+    </div>
+  </form>
+
+  <table class="table mt-5" *ngIf="listaTelefone.length > 0">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">DDD</th>
+      <th scope="col">Número</th>
+      <th scope="col">Ação</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let telefone of listaTelefone; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{telefone.ddd}}</td>
+      <td>{{telefone.numero}}</td>
+      <td>
+        <div>
+          <button type="button" class="btn btn-default btn-lg">
+            <span class="bi-x-lg" aria-hidden="true" (click)="remover(i)"></span>
+          </button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
