@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ControlContainer, FormGroup, Validators} from "@angular/forms";
-import {Endereco, UF} from "../../model/cliente.model";
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {ControlContainer, FormGroup} from "@angular/forms";
+import {CepWS, Endereco, UF} from "../../model/cliente.model";
+import {ClienteService} from "../../service/cliente.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-endereco-form',
@@ -16,8 +18,11 @@ export class EnderecoFormComponent implements OnInit {
   formParent: FormGroup;
   ufs: UF[] = [];
   isDetalhar = false;
+  sub = new Subscription();
 
-  constructor(private controlContainer: ControlContainer) {
+
+  constructor(private controlContainer: ControlContainer,
+              private clienteService: ClienteService) {
   }
 
   ngOnInit(): void {
@@ -73,5 +78,23 @@ export class EnderecoFormComponent implements OnInit {
     this.formParent.get('uf')?.setValue(this.endereco.uf);
     this.formParent.get('complemento')?.setValue(this.endereco.complemento);
 
+  }
+
+  buscarCep() {
+    this.sub.add(
+      this.clienteService.buscarCep(this.formParent.get('cep')?.value).subscribe(cepWs => {
+        this.preencheEnderecoWs(cepWs);
+      },error => {
+        alert('Erro ao consultar cep');
+      }).unsubscribe());
+  }
+
+  preencheEnderecoWs(cep: CepWS) {
+    this.formParent.get('cep')?.setValue(cep.cep);
+    this.formParent.get('bairro')?.setValue(cep.bairro);
+    this.formParent.get('logradouro')?.setValue(cep.logradouro);
+    this.formParent.get('cidade')?.setValue(cep.localidade);
+    this.formParent.get('uf')?.setValue(cep.uf);
+    this.formParent.get('complemento')?.setValue(cep.complemento);
   }
 }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Cliente} from "../model/cliente.model";
+import {CepWS, Cliente} from "../model/cliente.model";
 import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
 import {LoginRetorno} from "../../login/model/login.model";
@@ -38,5 +38,9 @@ export class ClienteService {
     let params = new HttpParams();
     params = params.append('login', actorList.join(', '));
     return params
+  }
+
+  buscarCep(cep: any): Observable<CepWS>{
+    return this.http.get<CepWS>(environment.API_CEP+cep+'/json/');
   }
 }

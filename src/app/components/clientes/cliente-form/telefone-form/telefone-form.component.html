@@ -1,35 +1,31 @@
 <section class="form-control ">
   <form [formGroup]="formParent">
-    <h4 class="mt-5">Telefone</h4>
-    <div *ngIf="transacao !== '2'">
-      <button type="button" (click)="novoTelefone()" [disabled]="validaForm()" class="btn btn-info mb-4 button-login">
-        Novo
-        Telefone
-      </button>
-      <div class="mb-3">
-        <label class="form-label">Tipo Telefone</label>
-        <select class="form-select" id="tipoTelefoneId" (change)="selectItem()" formControlName="tipoTelefoneId">
-          <option *ngFor="let tipo of tiposTelefone" [value]="tipo.id">
-            {{tipo.descricao}}
-          </option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">DDD</label>
-        <select class="form-select" id="ddd" formControlName="ddd">
-          <option *ngFor="let ddd of ddds" [value]="ddd.id">
-            {{ddd.id}}
-          </option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Número</label>
-        <input type="text" class="form-control" id="numero" [placeholder]="defaultMask" formControlName="numero"
-               [mask]="defaultMask">
-      </div>
+    <h4>Telefone</h4>
+
+    <div class="mb-3">
+      <label class="form-label">DDD</label>
+      <select class="form-select" id="ddd" formControlName="ddd">
+        <option *ngFor="let ddd of ddds" [value]="ddd.id">
+          {{ddd.id}}
+        </option>
+      </select>
     </div>
-
-
+    <div class="mb-3">
+      <label class="form-label">Número</label>
+      <input type="text" class="form-control" id="numero" [placeholder]="defaultMask" formControlName="numero"
+             [mask]="defaultMask">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Tipo Telefone</label>
+      <select class="form-select" id="tipoTelefone" (change)="selectItem()" formControlName="tipoTelefone">
+        <option *ngFor="let tipo of tiposTelefone" [value]="tipo.id">
+          {{tipo.descricao}}
+        </option>
+      </select>
+    </div>
+    <button type="button"  [disabled]="validaForm()" class="btn btn-info mb-4 btn-wd">
+      <span class="bi-plus" aria-hidden="true" (click)="novoTelefone()"> Novo Telefone </span>
+    </button>
   </form>
 
   <table class="table mt-5" *ngIf="listaTelefone.length > 0">

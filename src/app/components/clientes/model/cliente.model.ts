@@ -18,6 +18,15 @@ export interface Endereco {
   complemento: string;
 }
 
+export interface CepWS{
+  cep: string;
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  localidade: string;
+  uf: string;
+}
+
 export interface Telefone {
   id?: number;
   ddd: number;
