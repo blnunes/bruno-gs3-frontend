@@ -22,6 +22,6 @@ export class ClientesComponent implements OnInit {
   }
 
   acao(id: number, transacao: number) {
-    this.router.navigate(['/formulario'], {queryParams: {id: id, trasacao: transacao}})
+    this.router.navigate(['/formulario'], {queryParams: {id: id, transacao: transacao}})
   }
 }

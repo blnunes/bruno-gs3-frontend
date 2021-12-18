@@ -1,6 +1,6 @@
 <app-menu [apresentaBemvindo]="false"></app-menu>
 <section class="form-control formcliente-class">
-  <form [formGroup]="formCliente">
+  <form [formGroup]="formCliente" (ngSubmit)="salvar()">
     <h4>Cliente</h4>
     <div class="mb-3">
       <label class="form-label">Nome</label>
@@ -11,8 +11,25 @@
       <input type="text" class="form-control" id="cpf" placeholder="999.999.999-99" formControlName="cpf"
              [mask]="'000.000.000-00'">
     </div>
-    <app-endereco-form [formControl]="formCliente.get('endereco')">
+    <app-endereco-form *ngIf="clienteRetorno?.endereco"
+                       [formGroup]="formCliente"
+                       [endereco]="clienteRetorno.endereco"
+    >
     </app-endereco-form>
+    <app-email-form *ngIf="clienteRetorno?.emails"
+                    [formGroup]="formCliente"
+                    [email]="clienteRetorno.emails"
+    >
+    </app-email-form>
+    <app-telefone-form *ngIf="clienteRetorno?.telefones"
+                       [formGroup]="formCliente"
+                       [telefones]="clienteRetorno.telefones"
+    >
+    </app-telefone-form>
+    <button *ngIf="formCliente" type="submit"  class="btn btn-info mb-4 button-salvar">
+      Salvar
+    </button>
+<!--    <button type="button" (click)="salvar()">xxxxxx</button>-->
   </form>
 </section>
 

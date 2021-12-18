@@ -8,7 +8,7 @@ export interface Cliente {
 }
 
 export interface Endereco {
-  id: number;
+  id?: number;
   cep: string;
   logradouro: string
   bairro: string
@@ -18,12 +18,25 @@ export interface Endereco {
 }
 
 export interface Telefone {
-  id: number;
+  id?: number;
   ddd: number;
   numero: number;
+  tipoTelefoneId: number;
 }
 
 export interface Email {
-  id: number;
+  id?: number;
   email: string;
+}
+
+export interface UF {
+  id: number;
+  sigla: string;
+  desc: string;
+}
+
+export interface TipoTelefone {
+  id: number;
+  quantidadeDigitos: number;
+  descricao: string;
 }

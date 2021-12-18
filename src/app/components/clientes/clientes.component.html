@@ -1,38 +1,40 @@
-<app-menu [apresentaBemvindo]="false"></app-menu>
-<div class="emptyState" *ngIf="clientes.length === 0">
-  <h1 class="m-lg-5">Nenhum cliente encontrado</h1>
-  <img src="assets/empty-state.png"/>
-</div>
+<section>
+  <app-menu [apresentaBemvindo]="false"></app-menu>
+  <div class="emptyState" *ngIf="clientes.length === 0">
+    <h1 class="m-lg-5">Nenhum cliente encontrado</h1>
+    <img src="assets/empty-state.png"/>
+  </div>
 
-<table class="table mt-5" *ngIf="clientes.length > 0">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Nome</th>
-    <th scope="col">CPF</th>
-    <th scope="col">Ação</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let cliente of clientes; let i = index">
-    <th scope="row">{{i + 1}}</th>
-    <td>{{cliente.nome}}</td>
-    <td>{{cliente.cpf}}</td>
-    <td>
-      <div>
-        <button type="button" class="btn btn-default btn-lg">
-          <span class="bi-pencil-square" aria-hidden="true" (click)="acao(cliente.idCliente, 1)"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-lg">
-          <span class="bi-book" aria-hidden="true" (click)="acao(cliente.idCliente, 2)"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-lg">
-          <span class="bi-x-octagon" aria-hidden="true" (click)="acao(cliente.idCliente, 3)"></span>
-        </button>
-      </div>
+  <table class="table mt-5" *ngIf="clientes.length > 0">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+      <th scope="col">CPF</th>
+      <th scope="col">Ação</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let cliente of clientes; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{cliente.nome}}</td>
+      <td>{{cliente.cpf}}</td>
+      <td>
+        <div>
+          <button type="button" class="btn btn-default btn-lg">
+            <span class="bi-pencil-square" aria-hidden="true" (click)="acao(cliente.idCliente, 1)"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-lg">
+            <span class="bi-book" aria-hidden="true" (click)="acao(cliente.idCliente, 2)"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-lg">
+            <span class="bi-x-octagon" aria-hidden="true" (click)="acao(cliente.idCliente, 3)"></span>
+          </button>
+        </div>
 
-    </td>
-  </tr>
-  </tbody>
-</table>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
 

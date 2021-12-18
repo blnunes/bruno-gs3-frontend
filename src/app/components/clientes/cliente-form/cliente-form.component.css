@@ -3,3 +3,9 @@
   margin-left: 300px;
   margin-top: 40px;
 }
+
+.button-salvar{
+  display: block;
+  margin-top: 20px;
+  width: 100%;
+}

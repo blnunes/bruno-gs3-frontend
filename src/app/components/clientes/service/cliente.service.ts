@@ -12,14 +12,23 @@ const API = environment.REST_URL
 })
 export class ClienteService {
 
-  constructor(private http: HttpClient) { }
+  header = new Headers({
+    'Content-Type': 'application/json'
+  });
 
-  obterListaCliente(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(API + 'clientes'  )
+  constructor(private http: HttpClient) {
   }
 
+  obterListaCliente(): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(API + 'clientes')
+  }
 
-  obterCliente(id: number): Observable<Cliente> {
-    return this.http.get<Cliente>(API + `clientes/${id}`  )
+  obterCliente(id: number, cliente?: Cliente): Observable<Cliente> {
+
+    return this.http.get<Cliente>(API + `clientes/${id}`)
+  }
+
+  editar(cliente: Cliente): Observable<any> {
+    return this.http.put<any>(API + `clientes/alterar/${cliente.idCliente}`, cliente);
   }
 }
