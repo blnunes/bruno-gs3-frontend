@@ -4,7 +4,7 @@ export interface Login {
 }
 
 export interface LoginRetorno {
-  user: string;
+  usuario: string;
   perfil: PerfilUsuario;
 }
 

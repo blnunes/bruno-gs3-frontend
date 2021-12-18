@@ -35,9 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.errs = [];
     this.loginService.obter(this.formLogin.get('login')?.value, this.formLogin.get('senha')?.value)
       .subscribe(value => {
-        // this.apresentarMensagemSucesso('Login realizado com sucesso');
-      this.router.navigate(['menu']);
-    }, error => {
+      this.router.navigate(['clientes'], {queryParams: {login: value.usuario, perfil: value.perfil.perfil}});
+      }, error => {
         if(error?.error.erro){
           this.errs?.push(error.error.erro)
         } else {
@@ -45,8 +44,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
     })
   }
-
-
 
   ngOnDestroy() {
     this.sub.unsubscribe();

@@ -1,32 +1,40 @@
 <app-menu [apresentaBemvindo]="false"></app-menu>
+
 <section class="form-control formcliente-class">
   <form [formGroup]="formCliente" (ngSubmit)="salvar()">
     <h4>Cliente</h4>
     <div class="mb-3">
       <label class="form-label">Nome</label>
-      <input type="text" class="form-control" id="nome" placeholder="José da Silva Sauro" formControlName="nome">
+      <input type="text" class="form-control" id="nome"
+             placeholder="José da Silva Sauro" formControlName="nome"
+             [readonly]="transacao === '2'">
     </div>
     <div class="mb-3">
       <label class="form-label">CPF</label>
       <input type="text" class="form-control" id="cpf" placeholder="999.999.999-99" formControlName="cpf"
-             [mask]="'000.000.000-00'">
+             [mask]="'000.000.000-00'" [readonly]="transacao === '2'">
     </div>
     <app-endereco-form *ngIf="clienteRetorno?.endereco"
                        [formGroup]="formCliente"
                        [endereco]="clienteRetorno.endereco"
+                       [transacao]="transacao"
     >
     </app-endereco-form>
     <app-email-form *ngIf="clienteRetorno?.emails"
                     [formGroup]="formCliente"
                     [email]="clienteRetorno.emails"
+                    [transacao]="transacao"
+
     >
     </app-email-form>
     <app-telefone-form *ngIf="clienteRetorno?.telefones"
                        [formGroup]="formCliente"
                        [telefones]="clienteRetorno.telefones"
+                       [transacao]="transacao"
+
     >
     </app-telefone-form>
-    <button *ngIf="formCliente" type="submit"  class="btn btn-info mb-4 button-salvar">
+    <button *ngIf="transacao !=='2'" type="submit"  class="btn btn-info mb-4 button-salvar">
       Salvar
     </button>
 <!--    <button type="button" (click)="salvar()">xxxxxx</button>-->

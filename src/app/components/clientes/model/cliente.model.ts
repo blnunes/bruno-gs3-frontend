@@ -1,5 +1,6 @@
 export interface Cliente {
-  idCliente: number
+  login: string;
+  idCliente: number;
   nome: string;
   cpf: string;
   endereco: Endereco;

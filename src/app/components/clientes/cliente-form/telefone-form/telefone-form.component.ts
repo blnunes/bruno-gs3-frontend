@@ -9,6 +9,8 @@ import {Telefone, TipoTelefone} from "../../model/cliente.model";
 })
 export class TelefoneFormComponent implements OnInit {
   // @ts-ignore
+  @Input() transacao: any;
+  // @ts-ignore
   @Input() telefones: Telefone[];
   defaultMask = '9999-9999'
   ddds: any[] = []

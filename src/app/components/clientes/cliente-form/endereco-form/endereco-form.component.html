@@ -4,34 +4,40 @@
     <div class="mb-3">
       <label class="form-label">CEP</label>
       <input type="text" class="form-control" id="cep" placeholder="99999-999" formControlName="cep"
-      [mask]="'99999-999'">
+             [mask]="'99999-999'" [readonly]="isDetalhar">
     </div>
     <div class="mb-3">
       <label class="form-label">Logradouro</label>
       <input type="text" class="form-control" id="logradouro" placeholder="Rua 99" formControlName="logradouro"
-             >
+             [readonly]="isDetalhar"
+      >
     </div>
     <div class="mb-3">
       <label class="form-label">Bairro</label>
       <input type="text" class="form-control" id="bairro" placeholder="Lapa" formControlName="bairro"
-             >
+             [readonly]="isDetalhar"
+      >
     </div>
     <div class="mb-3">
       <label class="form-label">Cidade</label>
       <input type="text" class="form-control" id="cidade" placeholder="Rio de Janeiro" formControlName="cidade"
+             [readonly]="isDetalhar"
       >
     </div>
-    <div class="mb-3">
+    <div class="mb-3" >
       <label class="form-label">UF</label>
-      <select class="form-select" id="uf" formControlName="uf">
+      <select class="form-select" id="uf" formControlName="uf" *ngIf="!isDetalhar">
         <option *ngFor="let uf of ufs" [value]="uf.sigla">
           {{uf.sigla}}
         </option>
       </select>
+      <input type="text" class="form-control" id="uf2" formControlName="uf" *ngIf="isDetalhar"
+             [readonly]="isDetalhar"
+      >
     </div>
     <div class="mb-3">
       <label class="form-label">Complemento</label>
-      <input type="text" class="form-control" id="complemento" placeholder="Apto 999" formControlName="complemento"
+      <input type="text" class="form-control" [readonly]="isDetalhar" id="complemento" placeholder="Apto 999" formControlName="complemento"
       >
     </div>
 

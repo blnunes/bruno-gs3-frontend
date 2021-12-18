@@ -21,13 +21,13 @@
       <td>{{cliente.cpf}}</td>
       <td>
         <div>
-          <button type="button" class="btn btn-default btn-lg">
+          <button type="button" class="btn btn-default btn-lg" *ngIf="isAdm">
             <span class="bi-pencil-square" aria-hidden="true" (click)="acao(cliente.idCliente, 1)"></span>
           </button>
-          <button type="button" class="btn btn-default btn-lg">
+          <button type="button" class="btn btn-default btn-lg" *ngIf="isAdm || isComum">
             <span class="bi-book" aria-hidden="true" (click)="acao(cliente.idCliente, 2)"></span>
           </button>
-          <button type="button" class="btn btn-default btn-lg">
+          <button type="button" class="btn btn-default btn-lg" *ngIf="isAdm">
             <span class="bi-x-octagon" aria-hidden="true" (click)="acao(cliente.idCliente, 3)"></span>
           </button>
         </div>

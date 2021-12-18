@@ -12,7 +12,8 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./cliente-form.component.css']
 })
 export class ClienteFormComponent implements OnInit, OnDestroy {
-  transacao:any;
+  usuario: any;
+  transacao: any;
   sub = new Subscription();
   // @ts-ignore
   clienteRetorno: Cliente;
@@ -38,19 +39,20 @@ export class ClienteFormComponent implements OnInit, OnDestroy {
       listaTelefone: [null, [Validators.required]]
     })
   });
-  private id: number = 0;
+  id: number = 0;
 
   constructor(private activateRoute: ActivatedRoute,
               private service: ClienteService,
-              private fb: FormBuilder,
-              private httpCliente: HttpClient) {
+              private fb: FormBuilder
+             ) {
   }
 
   ngOnInit(): void {
     this.activateRoute.queryParams.subscribe(params => {
       this.id = params['id'];
-      this.transacao = params['trasacao'];
-      this.sub.add(this.service.obterCliente(this.id).subscribe(cliente => {
+      this.transacao = params['transacao'];
+      this.usuario = params['login'];
+      this.sub.add(this.service.obterCliente(this.id, this.usuario).subscribe(cliente => {
         this.clienteRetorno = cliente;
         this.montaFormBuilderValores(cliente);
       }));
@@ -67,14 +69,15 @@ export class ClienteFormComponent implements OnInit, OnDestroy {
   }
 
   salvar() {
-      const cliente = this.criarCliente();
-      this.service.editar( cliente).subscribe(value => {
-        alert("deu bom");
-      });
+    const cliente = this.criarCliente();
+    this.service.editar(cliente).subscribe(value => {
+      alert("deu bom");
+    });
   }
 
   criarCliente(): Cliente {
     return {
+      login: this.usuario,
       idCliente: this.id,
       nome: this.formCliente.get('nome')?.value,
       cpf: this.formCliente.get('cpf')?.value,

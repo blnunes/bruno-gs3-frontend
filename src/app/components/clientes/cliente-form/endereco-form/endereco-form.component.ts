@@ -9,15 +9,19 @@ import {Endereco, UF} from "../../model/cliente.model";
 })
 export class EnderecoFormComponent implements OnInit {
   // @ts-ignore
+  @Input() transacao: any;
+  // @ts-ignore
   @Input() endereco: Endereco;
   // @ts-ignore
   formParent: FormGroup;
   ufs: UF[] = [];
+  isDetalhar = false;
 
   constructor(private controlContainer: ControlContainer) {
   }
 
   ngOnInit(): void {
+    this.isDetalhar = this.transacao === '2';
     this.ufs = [];
     this.formParent = <FormGroup>this.controlContainer.control?.get('endereco');
     this.preencheUF()

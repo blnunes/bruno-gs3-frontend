@@ -9,6 +9,8 @@ import {Email, Telefone, UF} from "../../model/cliente.model";
 })
 export class EmailFormComponent implements OnInit {
   // @ts-ignore
+  @Input() transacao: any;
+  // @ts-ignore
   @Input() email: Email[];
   // @ts-ignore
   formParent: FormGroup;
