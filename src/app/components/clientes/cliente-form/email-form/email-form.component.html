@@ -1,21 +1,21 @@
-<section>
+<section class="form-control mt-3 mb-3">
   <form [formGroup]="formParent">
-    <h4 class="mt-5">E-mail</h4>
+    <h4 class="mt-2">E-mail</h4>
     <div *ngIf="transacao!=='2'">
-
       <div class="mb-3">
         <label class="form-label">E-mail</label>
         <input type="email" class="form-control" id="numero" [placeholder]="'email@email.com'" formControlName="email">
       </div>
+
+      <button type="button"
+              [disabled]="this.formParent.get('email')?.invalid || this.formParent.get('email')?.value === null"
+              class="btn btn-info mb-4 btn-wd" (click)="novoEmail()">
+        <span class="bi-plus" aria-hidden="true">Novo e-mail</span>
+      </button>
     </div>
-    <button type="button"
-            [disabled]="this.formParent.get('email')?.invalid || this.formParent.get('email')?.value === null"
-            class="btn btn-info mb-4 btn-wd">
-      <span class="bi-plus" aria-hidden="true" (click)="novoEmail()">Novo e-mail</span>
-    </button>
   </form>
 
-  <table class="table mt-5" *ngIf="listaEmail.length > 0">
+  <table class="table mt-5" *ngIf="listaEmail && listaEmail.length > 0">
     <thead>
     <tr>
       <th scope="col">#</th>

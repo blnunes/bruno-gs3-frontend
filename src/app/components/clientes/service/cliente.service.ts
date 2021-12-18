@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {CepWS, Cliente} from "../model/cliente.model";
+import {Cliente, ClienteSalvar} from "../model/cliente.model";
 import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
-import {LoginRetorno} from "../../login/model/login.model";
 
 const API = environment.REST_URL
 
@@ -33,6 +32,10 @@ export class ClienteService {
     return this.http.put<any>(API + `clientes/alterar/${cliente.idCliente}`, cliente);
   }
 
+  cadastrar(cliente: ClienteSalvar): Observable<any> {
+    return this.http.post<any>(API + `clientes/cadastrar`, cliente);
+  }
+
   montaLogin(login: any) : HttpParams{
     let actorList = [login]
     let params = new HttpParams();
@@ -40,7 +43,7 @@ export class ClienteService {
     return params
   }
 
-  buscarCep(cep: any): Observable<CepWS>{
-    return this.http.get<CepWS>(environment.API_CEP+cep+'/json/');
+  buscarCep(cep: any){
+    return this.http.get(environment.API_CEP+cep+'/json');
   }
 }

@@ -8,6 +8,16 @@ export interface Cliente {
   telefones: Telefone[];
 }
 
+export interface ClienteSalvar {
+  login: string;
+  nome: string;
+  cpf: string;
+  endereco: Endereco;
+  emails: Email[];
+  telefones: Telefone[];
+}
+
+
 export interface Endereco {
   id?: number;
   cep: string;

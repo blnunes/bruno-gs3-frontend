@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ClienteService} from "./service/cliente.service";
 import {Cliente} from "./model/cliente.model";
 import {ActivatedRoute, Router} from "@angular/router";
-import {LoginRetorno} from "../login/model/login.model";
 
 @Component({
   selector: 'app-clientes',
@@ -41,6 +40,6 @@ export class ClientesComponent implements OnInit {
   }
 
   acao(id: number, transacao: number) {
-    this.router.navigate(['/formulario'], {queryParams: {id: id, transacao: transacao, login: this.login}})
+    this.router.navigate(['/formulario'], {queryParams: {id: id, transacao: transacao, login: this.login, perfil: this.perfil}})
   }
 }

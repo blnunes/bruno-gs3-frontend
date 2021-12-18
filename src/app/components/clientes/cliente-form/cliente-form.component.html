@@ -14,28 +14,31 @@
       <input type="text" class="form-control" id="cpf" placeholder="999.999.999-99" formControlName="cpf"
              [mask]="'000.000.000-00'" [readonly]="transacao === '2'">
     </div>
-    <app-endereco-form *ngIf="clienteRetorno?.endereco"
+    <app-endereco-form *ngIf="clienteRetorno?.endereco || transacao === '0'"
                        [formGroup]="formCliente"
-                       [endereco]="clienteRetorno.endereco"
+                       [endereco]="clienteRetorno?.endereco"
                        [transacao]="transacao"
     >
     </app-endereco-form>
-    <app-email-form *ngIf="clienteRetorno?.emails"
+    <app-email-form *ngIf="clienteRetorno?.emails || transacao === '0'"
                     [formGroup]="formCliente"
-                    [email]="clienteRetorno.emails"
+                    [email]="clienteRetorno?.emails"
                     [transacao]="transacao"
 
     >
     </app-email-form>
-    <app-telefone-form *ngIf="clienteRetorno?.telefones"
+    <app-telefone-form *ngIf="clienteRetorno?.telefones || transacao === '0'"
                        [formGroup]="formCliente"
-                       [telefones]="clienteRetorno.telefones"
+                       [telefones]="clienteRetorno?.telefones"
                        [transacao]="transacao"
 
     >
     </app-telefone-form>
     <button *ngIf="transacao !=='2'" type="submit"  class="btn btn-info mb-4 button-salvar">
       Salvar
+    </button>
+    <button *ngIf="transacao ==='2'" type="button" (click)="voltar()" class="btn btn-info mb-4 button-salvar">
+      Voltar
     </button>
 <!--    <button type="button" (click)="salvar()">xxxxxx</button>-->
   </form>

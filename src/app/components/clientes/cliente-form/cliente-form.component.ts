@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ClienteService} from "../service/cliente.service";
 import {Subscription} from "rxjs";
-import {Cliente, Email, Endereco, Telefone} from "../model/cliente.model";
+import {Cliente, ClienteSalvar, Email, Endereco, Telefone} from "../model/cliente.model";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 
@@ -21,7 +21,7 @@ export class ClienteFormComponent implements OnInit, OnDestroy {
     nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
     cpf: [null, Validators.required],
     endereco: this.fb.group({
-      cep: [null, Validators.required],
+      cep: [null, [Validators.required, Validators.minLength(8)]],
       logradouro: [null, Validators.required],
       bairro: [null, Validators.required],
       cidade: [null, Validators.required],
@@ -40,11 +40,13 @@ export class ClienteFormComponent implements OnInit, OnDestroy {
     })
   });
   id: number = 0;
+  perfil: any;
 
   constructor(private activateRoute: ActivatedRoute,
               private service: ClienteService,
-              private fb: FormBuilder
-             ) {
+              private fb: FormBuilder,
+              private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -52,10 +54,14 @@ export class ClienteFormComponent implements OnInit, OnDestroy {
       this.id = params['id'];
       this.transacao = params['transacao'];
       this.usuario = params['login'];
-      this.sub.add(this.service.obterCliente(this.id, this.usuario).subscribe(cliente => {
-        this.clienteRetorno = cliente;
-        this.montaFormBuilderValores(cliente);
-      }));
+      this.perfil = params['perfil'];
+
+      if (this.id !== 0) {
+        this.sub.add(this.service.obterCliente(this.id, this.usuario).subscribe(cliente => {
+          this.clienteRetorno = cliente;
+          this.montaFormBuilderValores(cliente);
+        }));
+      }
     });
   }
 
@@ -69,13 +75,38 @@ export class ClienteFormComponent implements OnInit, OnDestroy {
   }
 
   salvar() {
-    const cliente = this.criarCliente();
-    this.service.editar(cliente).subscribe(value => {
-      alert("deu bom");
-    });
+    if(this.transacao === '1'){
+      const cliente = this.criarClienteUpdate();
+      this.service.editar(cliente).subscribe(value => {
+          alert("Cliente alterado com sucesso!");
+          this.router.navigate(['clientes'],{queryParams: {login: cliente.login, perfil: this.perfil}})
+        }, error =>
+          alert('Erro ao cadastrar/atualizar cliente')
+      );
+    } else if(this.transacao === '0'){
+      const cliente = this.criarClienteSalvar();
+      this.service.cadastrar(cliente).subscribe(value => {
+          alert("Cliente cadastrado com sucesso!");
+          this.router.navigate(['clientes'],{queryParams: {login: cliente.login, perfil: this.perfil}})
+        }, error =>
+          alert('Erro ao cadastrar/atualizar cliente')
+      );
+    }
+
   }
 
-  criarCliente(): Cliente {
+  criarClienteSalvar(): ClienteSalvar {
+    return {
+      login: this.usuario,
+      nome: this.formCliente.get('nome')?.value,
+      cpf: this.formCliente.get('cpf')?.value,
+      endereco: this.criarEndereco(this.formCliente.get('endereco')),
+      emails: this.criarListaEmail(this.formCliente.get('emails')),
+      telefones: this.criarListaTelefone(this.formCliente.get('telefone'))
+    }
+  }
+
+  criarClienteUpdate(): Cliente {
     return {
       login: this.usuario,
       idCliente: this.id,
@@ -89,7 +120,7 @@ export class ClienteFormComponent implements OnInit, OnDestroy {
 
   private criarEndereco(endereco: AbstractControl | null): Endereco {
     return {
-      cep: endereco?.get('cep')?.value,
+      cep: endereco?.get('cep')?.value.replace(/\.|\-/g, ''),
       logradouro: endereco?.get('logradouro')?.value,
       bairro: endereco?.get('bairro')?.value,
       cidade: endereco?.get('cidade')?.value,
@@ -106,5 +137,9 @@ export class ClienteFormComponent implements OnInit, OnDestroy {
   private criarListaTelefone(telefone: AbstractControl | null): Telefone[] {
     const listaTelefone = telefone?.get('listaTelefone')?.value;
     return listaTelefone;
+  }
+
+  voltar(){
+    this.router.navigate(['clientes'],{queryParams: {login: this.usuario, perfil: this.perfil}})
   }
 }

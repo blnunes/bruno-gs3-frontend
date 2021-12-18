@@ -11,7 +11,7 @@ export class EmailFormComponent implements OnInit {
   // @ts-ignore
   @Input() transacao: any;
   // @ts-ignore
-  @Input() email: Email[];
+  @Input() email: Email[] | undefined;
   // @ts-ignore
   formParent: FormGroup;
   listaEmail: Email[] = [];
@@ -20,16 +20,24 @@ export class EmailFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listaEmail = this.email;
+    if(this.email !== undefined){
+      this.listaEmail = this.email;
+    } else {
+      this.listaEmail = [];
+    }
     this.formParent = <FormGroup>this.controlContainer.control?.get('emails');
     this.formParent.get('listaEmail')?.setValue(this.listaEmail);
   }
 
   novoEmail() {
-    this.listaEmail.push(
-      {
-        email: this.formParent.get('email')?.value
-      });
+    if(this.listaEmail !== null){
+      this.listaEmail.push(
+        {
+          email: this.formParent.get('email')?.value
+        });
+    } else {
+      this.listaEmail = [{email: this.formParent.get('email')?.value}]
+    }
     this.formParent.get('email')?.setValue('');
     this.formParent.get('listaEmail')?.setValue(this.listaEmail);
   }

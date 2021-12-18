@@ -13,13 +13,13 @@ export class EnderecoFormComponent implements OnInit {
   // @ts-ignore
   @Input() transacao: any;
   // @ts-ignore
-  @Input() endereco: Endereco;
+  @Input() endereco: Endereco | undefined;
   // @ts-ignore
   formParent: FormGroup;
   ufs: UF[] = [];
   isDetalhar = false;
   sub = new Subscription();
-
+  returnWs: any;
 
   constructor(private controlContainer: ControlContainer,
               private clienteService: ClienteService) {
@@ -65,31 +65,30 @@ export class EnderecoFormComponent implements OnInit {
   }
 
   private preencheEndereco() {
-    // cep: [null, Validators.required],
-    //   logradouro: [null, Validators.required],
-    //   bairro: [null, Validators.required],
-    //   cidade: [null, Validators.required],
-    //   uf: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    //   complemento: [null]
-    this.formParent.get('cep')?.setValue(this.endereco.cep);
-    this.formParent.get('bairro')?.setValue(this.endereco.bairro);
-    this.formParent.get('logradouro')?.setValue(this.endereco.logradouro);
-    this.formParent.get('cidade')?.setValue(this.endereco.cidade);
-    this.formParent.get('uf')?.setValue(this.endereco.uf);
-    this.formParent.get('complemento')?.setValue(this.endereco.complemento);
+    if(this.endereco !== undefined && this.endereco !== null){
+      this.formParent.get('cep')?.setValue(this.endereco.cep);
+      this.formParent.get('bairro')?.setValue(this.endereco.bairro);
+      this.formParent.get('logradouro')?.setValue(this.endereco.logradouro);
+      this.formParent.get('cidade')?.setValue(this.endereco.cidade);
+      this.formParent.get('uf')?.setValue(this.endereco.uf);
+      this.formParent.get('complemento')?.setValue(this.endereco.complemento);
+    }
+
 
   }
 
   buscarCep() {
-    this.sub.add(
-      this.clienteService.buscarCep(this.formParent.get('cep')?.value).subscribe(cepWs => {
-        this.preencheEnderecoWs(cepWs);
-      },error => {
-        alert('Erro ao consultar cep');
-      }).unsubscribe());
+      this.clienteService.buscarCep(this.formParent.get('cep')?.value).subscribe(value =>{
+        // @ts-ignore
+        if(value.erro){
+          alert('CEP não encontrado');
+        }
+        this.preencheEnderecoWs(value)
+
+      } );
   }
 
-  preencheEnderecoWs(cep: CepWS) {
+  preencheEnderecoWs(cep: any) {
     this.formParent.get('cep')?.setValue(cep.cep);
     this.formParent.get('bairro')?.setValue(cep.bairro);
     this.formParent.get('logradouro')?.setValue(cep.logradouro);

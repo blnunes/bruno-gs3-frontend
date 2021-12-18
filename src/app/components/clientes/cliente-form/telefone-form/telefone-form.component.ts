@@ -11,7 +11,7 @@ export class TelefoneFormComponent implements OnInit {
   // @ts-ignore
   @Input() transacao: any;
   // @ts-ignore
-  @Input() telefones: Telefone[];
+  @Input() telefones: Telefone[] | undefined;
   defaultMask = '9999-9999'
   ddds: any[] = []
   tiposTelefone: TipoTelefone[] = [];
@@ -23,7 +23,9 @@ export class TelefoneFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listaTelefone = this.telefones;
+    if(this.telefones !== undefined){
+      this.listaTelefone = this.telefones;
+    }
     this.formParent = <FormGroup>this.controlContainer.control?.get('telefone');
     this.preencheDDDS();
     this.preencheTipoTelefone();
@@ -38,12 +40,20 @@ export class TelefoneFormComponent implements OnInit {
   }
 
   novoTelefone() {
-    this.listaTelefone.push(
-      {
+    if(this.listaTelefone !== null) {
+      this.listaTelefone.push(
+        {
+          ddd: this.formParent.get('ddd')?.value,
+          numero: this.formParent.get('numero')?.value,
+          tipoTelefoneId: this.formParent.get('tipoTelefoneId')?.value
+        });
+    } else{
+      this.listaTelefone = [ {
         ddd: this.formParent.get('ddd')?.value,
         numero: this.formParent.get('numero')?.value,
         tipoTelefoneId: this.formParent.get('tipoTelefoneId')?.value
-      });
+      }]
+    }
     this.formParent.get('numero')?.setValue('');
     this.formParent.get('ddd')?.setValue('');
     this.formParent.get('listaTelefone')?.setValue(this.listaTelefone);

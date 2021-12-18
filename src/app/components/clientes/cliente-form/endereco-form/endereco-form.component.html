@@ -1,10 +1,10 @@
 <section class="form-control">
   <form [formGroup]="formParent">
     <h4>Endereço</h4>
-    <button type="button"
-            [disabled]="this.formParent.get('cep')?.invalid"
-            class="btn btn-info mb-4 btn-wd">
-      <span class="bi-search" aria-hidden="true" (click)="buscarCep()" > Buscar cep</span>
+    <button type="button" *ngIf="!isDetalhar"
+            [disabled]="this.formParent.get('cep')?.invalid "
+            class="btn btn-info mb-4 btn-wd" (click)="buscarCep()">
+      <span class="bi-search" aria-hidden="true"  > Buscar cep</span>
     </button>
     <div class="mb-3">
       <label class="form-label">CEP</label>
